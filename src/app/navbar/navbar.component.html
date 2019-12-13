@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>Vocabulary Notebook</span>
+        <span class="example-spacer"></span>
+        <a [routerLink]="['/words/add']" class="link">Add Word</a>
+        <a [routerLink]="['/words/list']" class="link">List</a>
+        <a [routerLink]="['/words/test']" class="link">Test</a>
+        <mat-icon *ngIf="!loggedIn" routerLink="/login" matTooltip="Log in" class="example-icon" aria-hidden="false" aria-label="account icon">account_circle</mat-icon>
+        <span *ngIf="loggedIn">User</span>
+    </mat-toolbar-row>
+</mat-toolbar>

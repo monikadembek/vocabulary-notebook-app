@@ -1,0 +1,19 @@
+.example-icon {
+    padding: 0 14px;
+}
+  
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+.link {
+    margin-right: 20px;
+}
+
+mat-icon[routerLink] {
+    cursor: pointer; 
+}
