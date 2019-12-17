@@ -1,5 +1,15 @@
 <p>Welcome to vocabulary notebook app</p>
-<p>Your digital notebook where you can save new words to remeber</p>
+<p>Your digital notebook where you can your language skills by saving new words to remeber</p>
 <mat-divider></mat-divider>
-<p>Please sign in with your Google account</p>
-<button mat-flat-button color="primary">Log in with Google</button>
+<div *ngIf="auth.user$ | async as user; else login">
+    <p>You are logged in as {{user.displayName}}</p>
+    <button mat-flat-button color="primary" (click)="auth.signOut()">
+        Sign out
+    </button>    
+</div>
+<ng-template #login>
+    <p>Please sign in with your Google account</p>
+    <button mat-flat-button color="primary" (click)="auth.googleSignIn()">
+        Log in with Google
+    </button>
+</ng-template>
