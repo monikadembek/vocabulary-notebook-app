@@ -15,8 +15,10 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthGuard } from './services/auth.guard';
 
 const ROUTES: Routes = [
+  { path: 'words', loadChildren: () => import('./words/words.module').then(m => m.WordsModule)} ,
   { path: '', component: WelcomeComponent }
 ];
 
@@ -34,7 +36,7 @@ const ROUTES: Routes = [
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
