@@ -1,11 +1,17 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>Vocabulary Notebook</span>
+        <a [routerLink]="['/']">Vocabulary Notebook</a>
         <span class="example-spacer"></span>
         <a [routerLink]="['/words/add']" class="link">Add Word</a>
-        <a [routerLink]="['/words/list']" class="link">List</a>
+        <a [routerLink]="['/words']" class="link">Words</a>
         <a [routerLink]="['/words/test']" class="link">Test</a>
-        <mat-icon *ngIf="!loggedIn" routerLink="/login" matTooltip="Log in" class="example-icon" aria-hidden="false" aria-label="account icon">account_circle</mat-icon>
-        <span *ngIf="loggedIn">User</span>
+        <mat-icon *ngIf="!user" matTooltip="Log in" class="example-icon" aria-hidden="false" aria-label="account icon"
+            (click)="auth.googleSignIn()">account_circle</mat-icon>
+        <div *ngIf="auth.user$ | async as user">
+            <span>User {{user.displayName}}</span>
+            <mat-icon matTooltip="Log out" class="example-icon" aria-hidden="false" aria-label="account icon"
+                (click)="auth.signOut()">input</mat-icon>
+        </div>
+
     </mat-toolbar-row>
 </mat-toolbar>
