@@ -17,7 +17,8 @@ import { User } from '../users/user.model';
 export class AuthService {
 
   user$: Observable<any>;
-  loggedIn: boolean;
+  // loggedIn: boolean = false;
+  loggedIn1: boolean = false;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
@@ -38,21 +39,23 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    this.user$.subscribe(data => this.loggedIn = data.uid ? true : false )
-    return this.loggedIn;
+    this.user$.subscribe(data => {
+      console.log("inside isLoggedIn fn, data: ");
+      console.log(data);
+      if (data) {
+        console.log("data.uid: ", data.uid);
+        this.loggedIn1 = data.uid ? true : false;
+      } else {
+        this.loggedIn1 = false;
+      }
+    });  
+    console.log("Logged in? ", this.loggedIn1);
+    return this.loggedIn1;
   }
 
   get authenticated(): boolean {
     return this.user$ !== null;
   }
-  // get authenticated(): boolean {
-  //   this.user$.subscribe(data => {
-  //     const userId = data.uid; 
-  //     return userId ? true : false;
-  //   });
-    
-  //   //return this.user$ !== null;
-  // }
 
   async googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
@@ -63,6 +66,7 @@ export class AuthService {
 
   async signOut() {
     this.afAuth.auth.signOut();
+    // this.loggedIn = false;
     this.router.navigate(['/']);
   }
 
@@ -74,6 +78,7 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL
     }
+    // this.loggedIn = true;
     return userRef.set(data, {merge: true});
   }
 
