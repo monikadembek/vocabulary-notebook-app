@@ -44,6 +44,14 @@ export class WordsService {
     return words$;
   }
 
+  //add word to collection
+  addWord(word: Word) {
+    let wordCollection: AngularFirestoreCollection<Word>;
+    wordCollection = this.afs.collection<Word>('words');
+    wordCollection.add(word);
+    console.log("added word");
+  }
+
   //remove document with given id from words collection
   removeWordDoc(id: string): Promise<void> {
     return this.afs.doc<Word>(`words/${id}`).delete();

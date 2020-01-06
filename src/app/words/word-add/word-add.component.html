@@ -1,1 +1,49 @@
-<p>word-add works!</p>
+<h3>Add new word to the vocabulary</h3>
+<form novalidate (ngSubmit)="onSubmit()" [formGroup]="wordForm">
+
+    <div>
+        <label for="wordid">Word</label>
+        <input type="text" id="wordid" placeholder="type word" formControlName="word" required>
+        <span>
+
+        </span>
+    </div>
+
+    <div formArrayName="translations">
+        <div *ngFor="let translation of translations.controls; let i=index">
+            <label>
+                New translation:
+                <input type="text" [formControlName]="i">
+            </label>
+            <button *ngIf="i > 0" (click)="deleteTranslation(i)">Delete</button>
+        </div>
+        <button [disabled]="!translations.valid" (click)="addTranslation()">Add next meaning</button>
+    </div>
+
+    <div>
+        <label for="pronounciation">Pronounciation</label>
+        <input type="text" id="pronounciation" formcontrolName="pronounciation">
+    </div>
+
+    <div formArrayName="contexts">
+        <div *ngFor="let context of contexts.controls; let i=index">
+            <label>
+                Add new context:
+                <input type="text" [formControlName]="i">
+            </label>
+            <button *ngIf="i > 0" (click)="deleteContext(i)">Delete</button>
+        </div>
+        <button [disabled]="wordForm.get('contexts').pristine" (click)="addContext()">Add next context</button>
+    </div>
+
+    <div>
+        <label for="notes">Notes</label>
+        <textarea formControlName="notes" id="notes" cols="30" rows="3"></textarea>
+    </div>
+
+    <button type="submit" [disabled]="!wordForm.valid">Add word</button>
+</form>
+
+<p>wordForm value: {{wordForm.value | json}}</p>
+<p>wordForm status: {{wordForm.status}}</p>
+<!-- <p>wordForm contexts: {{wordForm.contexts.value}}</p> -->
