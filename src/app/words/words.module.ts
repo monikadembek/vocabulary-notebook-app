@@ -7,7 +7,10 @@ import { MaterialModule } from '../shared/material.module';
 
 
 @NgModule({
-  declarations: [WordListComponent, WordAddComponent],
+  declarations: [
+    WordListComponent,
+    WordAddComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
