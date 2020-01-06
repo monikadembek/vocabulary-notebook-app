@@ -16,17 +16,25 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthGuard } from './services/auth.guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
-  { path: 'words', loadChildren: () => import('./words/words.module').then(m => m.WordsModule)} ,
-  { path: '', component: WelcomeComponent }
+  { 
+    path: 'words',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./words/words.module')
+    .then(m => m.WordsModule)
+  } ,
+  { path: '', component: WelcomeComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
