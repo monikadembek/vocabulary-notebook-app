@@ -4,31 +4,34 @@ export const sampleData: Word[] = [
     {   
         userId: "OkXD0haCfCNWUnz1tLGxIATX7j42",
         word: 'cat',
-        translation: ['kot'],
+        translations: ['kot'],
         pronounciation: 'ket',
-        context: ['Cat is sleeping'],
+        contexts: ['Cat is sleeping'],
         remembered: false,
         addDate: new Date(),
-        marked: false
+        marked: false,
+        notes: ''
     },
     {   
         userId: "OkXD0haCfCNWUnz1tLGxIATX7j42",
         word: 'dog',
-        translation: ['pies'],
+        translations: ['pies'],
         pronounciation: 'dog',
-        context: ['Dog is barking'],
+        contexts: ['Dog is barking'],
         remembered: false,
         addDate: new Date(),
-        marked: false
+        marked: false,
+        notes: ''
     },
     {
         userId: "OkXD0haCfCNWUnz1tLGxIATX7j42",
         word: 'spider',
-        translation: ['pając'],
+        translations: ['pająk'],
         pronounciation: 'spajder',
-        context: ['Spider is waiting'],
+        contexts: ['Spider is waiting'],
         remembered: false,
         addDate: new Date(),
-        marked: false
+        marked: false,
+        notes: ''
     }
 ]

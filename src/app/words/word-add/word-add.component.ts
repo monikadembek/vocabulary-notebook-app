@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Word } from '../word.model';
 import { WordsService } from '../../services/words.service';
+import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-word-add',
@@ -16,10 +19,13 @@ export class WordAddComponent implements OnInit {
   //displayMessage: { [key: string]: string } = {};
   validationMessages = {
     required: 'This field is required',
+    translationRequired: 'Translation is required'
   };
 
   constructor(private fb: FormBuilder,
-    private wordsService: WordsService) { }
+              private wordsService: WordsService,
+              private authService: AuthService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.wordForm = this.fb.group({
@@ -39,6 +45,7 @@ export class WordAddComponent implements OnInit {
     return this.wordForm.get('translations') as FormArray;
   }
 
+  //dynamically adds FormControl
   addTranslation() {
     this.translations.push(this.fb.control(''));
   }
@@ -53,6 +60,7 @@ export class WordAddComponent implements OnInit {
     return this.wordForm.get('contexts') as FormArray;
   }
 
+  //dynamically adds FormControl
   addContext() {
     this.contexts.push(this.fb.control(''));
   }
@@ -64,16 +72,32 @@ export class WordAddComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.wordForm.value);
     this.word = {
       ...this.wordForm.value,
-      userId: "OkXD0haCfCNWUnz1tLGxIATX7j42",
+      userId: this.authService.userID,
       remembered: false,
       addDate: new Date(),
       marked: false
     }
     console.log(this.word);
-    this.wordsService.addWord(this.word);
+    this.wordsService.addWord(this.word)
+      .then(
+        () => {
+          console.log("added word to database");
+          this.wordForm.reset();
+          this.snackBar.open("Word added to database", "OK", {
+            duration: 3000
+          });
+        }
+      )
+      .catch(
+        err => {
+          console.log("Problem with adding word to database");
+          this.snackBar.open("Error occured", "OK", {
+            duration: 3000
+          });
+        }
+      );
   }
 
 }

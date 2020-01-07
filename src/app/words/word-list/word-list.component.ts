@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Word, WordId } from '../word.model';
 import { WordsService } from '../../services/words.service';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -14,19 +15,19 @@ export class WordListComponent implements OnInit {
   words$: Observable<WordId[]>;
 
   displayedColumns: string[] = ['word', 'translation', 'actions'];
-  dataSource: WordId[];
-  sampleDataBtn: boolean = false;
+  dataSource: MatTableDataSource<WordId>;
+  sampleDataBtn: boolean = false; //displays button to add sample data if words colection is empty
 
-  constructor(public wordsService: WordsService) { }
+  constructor(private wordsService: WordsService) { }
 
   ngOnInit() {
     //this.words$ = this.wordsService.getWords$();
     this.words$ = this.wordsService.getWordsCollection$();
     this.words$.subscribe(
       data => {
-        this.dataSource = data;
-        this.sampleDataBtn = (this.dataSource.length > 0) ? false : true;
-
+        this.dataSource = new MatTableDataSource(data);
+        this.sampleDataBtn = (data.length > 0) ? false : true;
+        console.log(data);
       }
     );
   }
@@ -42,5 +43,9 @@ export class WordListComponent implements OnInit {
 
   updateWord(id: string, data: Partial<Word>) {
     this.wordsService.updateWordDoc(id, data);
+  }
+
+  addSampleData() {
+    this.wordsService.addSampleData()
   }
 }

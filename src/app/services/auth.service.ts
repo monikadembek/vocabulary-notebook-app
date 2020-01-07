@@ -19,6 +19,7 @@ export class AuthService {
   user$: Observable<any>;
   // loggedIn: boolean = false;
   loggedIn1: boolean = false;
+  userID: string;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
@@ -30,6 +31,7 @@ export class AuthService {
           //checks if user is logged in
           //if there is user record in firestore that we can react to
           //valueChanges returns an observable
+          this.userID = user.uid; //currently logged in user's userID
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else { //user is not logged in
           return of(null);
@@ -52,6 +54,8 @@ export class AuthService {
     console.log("Logged in? ", this.loggedIn1);
     return this.loggedIn1;
   }
+
+
 
   get authenticated(): boolean {
     return this.user$ !== null;

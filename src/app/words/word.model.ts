@@ -1,9 +1,9 @@
 export interface Word {
     userId: string;
     word: string;
-    translation: string[],
+    translations: string[],
     pronounciation?: string;
-    context?: string[];
+    contexts?: string[];
     remembered: boolean;
     addDate: Date;
     marked?: boolean;

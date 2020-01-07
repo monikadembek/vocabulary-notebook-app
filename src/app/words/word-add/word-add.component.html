@@ -1,47 +1,53 @@
 <h3>Add new word to the vocabulary</h3>
 <form novalidate (ngSubmit)="onSubmit()" [formGroup]="wordForm">
 
-    <div>
+    <!-- <div>
         <label for="wordid">Word</label>
         <input type="text" id="wordid" placeholder="type word" formControlName="word" required>
-        <span>
+        <span *ngIf="wordForm.get('word').invalid">This field is required</span>
+    </div> -->
 
-        </span>
+    <div class="input-container">
+        <mat-form-field>
+          <input matInput placeholder="Enter word" formControlName="word" required>
+          <mat-error *ngIf="wordForm.get('word').invalid">This field is required</mat-error>
+        </mat-form-field>
     </div>
 
     <div formArrayName="translations">
-        <div *ngFor="let translation of translations.controls; let i=index">
-            <label>
-                New translation:
-                <input type="text" [formControlName]="i">
-            </label>
-            <button *ngIf="i > 0" (click)="deleteTranslation(i)">Delete</button>
+        <div *ngFor="let translation of translations.controls; let i=index" class="input-container">
+            <mat-form-field>
+                <input matInput type="text" [formControlName]="i" placeholder="Translation" required>
+                <mat-error *ngIf="translation.invalid">This field is required</mat-error>
+                <a mat-button color="warn" *ngIf="i > 0" (click)="deleteTranslation(i)">Delete</a>
+            </mat-form-field>
         </div>
-        <button [disabled]="!translations.valid" (click)="addTranslation()">Add next meaning</button>
+        <a mat-stroked-button color="primary" [disabled]="!translations.valid" (click)="addTranslation()">Add next meaning</a>
     </div>
 
-    <div>
-        <label for="pronounciation">Pronounciation</label>
-        <input type="text" id="pronounciation" formcontrolName="pronounciation">
+    <div class="input-container">
+        <mat-form-field>
+            <input matInput id="pronounciation" formcontrolName="pronounciation" placeholder="pronounciation">
+        </mat-form-field>
     </div>
 
     <div formArrayName="contexts">
-        <div *ngFor="let context of contexts.controls; let i=index">
-            <label>
-                Add new context:
-                <input type="text" [formControlName]="i">
-            </label>
-            <button *ngIf="i > 0" (click)="deleteContext(i)">Delete</button>
+        <div *ngFor="let context of contexts.controls; let i=index">   
+            <mat-form-field>
+                <input  matInput type="text" [formControlName]="i" placeholder="Context">
+                <a mat-button color="warn" *ngIf="i > 0" (click)="deleteContext(i)">Delete</a>
+            </mat-form-field>
         </div>
-        <button [disabled]="wordForm.get('contexts').pristine" (click)="addContext()">Add next context</button>
+        <a mat-stroked-button color="primary" [disabled]="wordForm.get('contexts').pristine" (click)="addContext()">Add next context</a>
     </div>
 
-    <div>
-        <label for="notes">Notes</label>
-        <textarea formControlName="notes" id="notes" cols="30" rows="3"></textarea>
+    <div class="input-container">
+        <mat-form-field>
+            <textarea matInput formControlName="notes" id="notes" placeholder="Notes"></textarea>
+        </mat-form-field>
     </div>
 
-    <button type="submit" [disabled]="!wordForm.valid">Add word</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!wordForm.valid">Add word</button>
 </form>
 
 <p>wordForm value: {{wordForm.value | json}}</p>
