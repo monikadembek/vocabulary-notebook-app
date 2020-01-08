@@ -1,0 +1,37 @@
+<h3>Word</h3>
+<div class="row">
+    <span class="col col-1">Word: </span>
+    <span class="col col-2">{{ word.word }}</span>
+</div>
+<div class="row">
+    <span class="col col-1">Translations: </span>
+    <span class="col col-2">{{ word.translations.join(', ') }}</span>
+</div>
+<div class="row">
+    <span class="col col-1">Pronounciation: </span>
+    <span class="col col-2">{{ word.pronounciation }}</span>
+</div>
+<div class="row">
+    <span class="col col-1">Contexts: </span>
+    <span class="col col-2">{{ word.contexts ? word.contexts.join(', ') : '' }}</span>
+</div>
+<div class="row">
+    <span class="col col-1">Notes: </span>
+    <span class="col col-2">{{ word.notes }}</span>
+</div>
+<div class="row">
+    <span class="col col-1">Remembered: </span>
+    <mat-button-toggle-group name="remembered" aria-label="remembered" (change)="onChange($event)" [value]="selected">
+        <mat-button-toggle value="true">Yes</mat-button-toggle>
+        <mat-button-toggle value="false">No</mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+<div class="row">
+    <span class="col col-1">Added: </span>
+    <span class="col col-2">{{ word.addDate.seconds*1000 | date: short }}</span>
+</div>
+<a (click)="goBack()" mat-stroked-button color="primary" class="go-back-btn">Go back</a>
+<a [routerLink]="['/words', id, 'edit']" mat-stroked-button color="primary" class="go-back-btn">Edit</a>
+
+<br /><br />
+<p>{{word | json}}</p>
