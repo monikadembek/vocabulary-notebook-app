@@ -12,3 +12,22 @@ form {
 .input-container > * {
     width: 100%;
 }
+
+.delBtn {
+    left: 100%;
+}
+
+.actionBtn {
+    margin-bottom: 30px;
+}
+
+@media (max-width: 440px) {
+    .delBtn {
+        left: 0;
+        top: 60px;
+    }
+
+    .actionBtn {
+        margin-top: 35px;
+    }
+}

@@ -10,10 +10,10 @@
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element" class="action-link">
             <button mat-icon-button matTooltip="Click to show details" class="iconbutton" color="primary">
-                <mat-icon aria-label="Details">visibility</mat-icon>
+                <mat-icon aria-label="Details" [routerLink]="['/words', element.id]">visibility</mat-icon>
             </button>
             <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
-                <mat-icon aria-label="Edit" (click)="updateWord(element.id, {translation: ['piessss', 'psa', 'psu']})">
+                <mat-icon aria-label="Edit" [routerLink]="['/words', id, 'edit']">
                     edit
                 </mat-icon>
             </button>

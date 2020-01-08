@@ -10,7 +10,7 @@ import { sampleData } from '../words/sample-data';
 })
 export class WordsService {
 
-  lastElId: number = 0;
+  id: number = 0;
 
   constructor(private afs: AngularFirestore) { }
 
@@ -21,7 +21,7 @@ export class WordsService {
 
       //adds new document with passed id and data
       this.afs.doc<Word>(`words/${i}`).set(sampleData[i]);
-      this.lastElId = i;
+      this.id = i;
     }
     console.log('sample data added');
   }
@@ -46,27 +46,34 @@ export class WordsService {
     return words$;
   }
 
+  //gets word document with specific id
+  getWord$(id: string): Observable<Word> {
+    return this.afs.doc<Word>("words/" + id).valueChanges();
+  }
+
   //number of words in collection
   wordsCounter() {
     let counter: Number;
     this.getWords$().subscribe(
       value => {
         counter = value.length;
-        return counter; 
+        return counter;
       }
     );
   }
 
   //add word to collection
   addWord(word: Word) {
-    this.lastElId++;
-    return this.afs.doc<Word>(`words/${this.lastElId}`).set(word);
-    
+    const id = this.id;
+    console.log("id: ", id);
+    this.id++;
+    return this.afs.doc<Word>(`words/${id}`).set(word);
+
     // method for adding data to collection without specifying id
     //let wordCollection: AngularFirestoreCollection<Word>;
     //wordCollection = this.afs.collection<Word>('words');
     //wordCollection.add(word);
-    
+
   }
 
   //remove document with given id from words collection
