@@ -1,4 +1,4 @@
-<h3>Add new word to the vocabulary</h3>
+<h3>Edit word</h3>
 <form novalidate (ngSubmit)="onSubmit()" [formGroup]="wordForm">
 
     <div class="input-container">
@@ -21,7 +21,7 @@
 
     <div class="input-container">
         <mat-form-field>
-            <input matInput id="pronounciation" formcontrolName="pronounciation" placeholder="Pronounciation">
+            <input matInput id="pronounciation" formControlName="pronounciation" placeholder="Pronounciation">
         </mat-form-field>
     </div>
 
@@ -32,7 +32,7 @@
                 <a [ngClass]="{delBtn: i > 0}" mat-button color="warn" *ngIf="i > 0" (click)="deleteContext(i)">Delete</a>
             </mat-form-field>
         </div>
-        <button type="button" mat-stroked-button color="primary" [disabled]="wordForm.get('contexts').pristine" (click)="addContext()" class="actionBtn">Add next context</button>
+        <button type="button" mat-stroked-button color="primary" [disabled]="wordForm.get('contexts').pristine && wordForm.get('contexts').value.length < 0" (click)="addContext()" class="actionBtn">Add next context</button>
     </div>
 
     <div class="input-container">
@@ -41,9 +41,11 @@
         </mat-form-field>
     </div>
 
-    <button mat-flat-button color="primary" type="submit" [disabled]="!wordForm.valid">Add word</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!wordForm.valid">Update word</button>
+    <button mat-flat-button type="button" color="primary" (click)="goBack()">Cancel</button>
+    
 </form>
 
-<br/>
+<!-- 
 <p>wordForm value: {{wordForm.value | json}}</p>
-<p>wordForm status: {{wordForm.status}}</p>
+<p>wordForm status: {{wordForm.status}}</p> -->
