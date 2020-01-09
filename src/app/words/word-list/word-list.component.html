@@ -3,6 +3,11 @@
 <!-- for testing purpose only-->
 <button *ngIf="sampleDataBtn" (click)="addSampleData()">Add sample data</button>
 
+
+<mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
 
     <!-- Action Column -->

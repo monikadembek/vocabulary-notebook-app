@@ -16,6 +16,7 @@ export class WordListComponent implements OnInit {
 
   displayedColumns: string[] = ['word', 'translation', 'actions'];
   dataSource: MatTableDataSource<WordId>;
+
   sampleDataBtn: boolean = false; //displays button to add sample data if words colection is empty
 
   constructor(private wordsService: WordsService) { }
@@ -43,6 +44,11 @@ export class WordListComponent implements OnInit {
 
   updateWord(id: string, data: Partial<Word>) {
     this.wordsService.updateWordDoc(id, data);
+  }
+
+  //function to filter through dataSource and leave only filtered rows in the MatTable
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   addSampleData() {
