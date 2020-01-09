@@ -54,4 +54,18 @@ export class WordListComponent implements OnInit {
   addSampleData() {
     this.wordsService.addSampleData()
   }
+
+  //react on change of angular mat button toggle to update value of remembered field 
+  onChange(event) {
+    //update field
+    let selectedButtons = event.value;
+    console.log("Selected columns:");
+    console.log(selectedButtons);
+    const actionsIndex = selectedButtons.indexOf("actions");
+    if (actionsIndex !== -1) {
+      selectedButtons.splice(actionsIndex, 1);
+      selectedButtons.push("actions");
+    }
+    this.displayedColumns = selectedButtons;
+  }
 }

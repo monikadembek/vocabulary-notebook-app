@@ -8,6 +8,14 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 
+<h4>Show / hide columns</h4>
+<mat-button-toggle-group class="columnsToggleButons" name="selectedColumn" aria-label="selected column" multiple="true"
+    (change)="onChange($event)" [value]="displayedColumns">
+    <mat-button-toggle value="word">Word</mat-button-toggle>
+    <mat-button-toggle value="translation">Translation</mat-button-toggle>
+    <mat-button-toggle value="actions">Actions</mat-button-toggle>
+</mat-button-toggle-group>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
 
     <!-- Action Column -->
