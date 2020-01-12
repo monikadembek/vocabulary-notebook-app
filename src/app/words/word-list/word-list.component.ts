@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Word, WordId } from '../word.model';
 import { WordsService } from '../../services/words.service';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -14,8 +15,10 @@ export class WordListComponent implements OnInit {
 
   words$: Observable<WordId[]>;
 
-  displayedColumns: string[] = ['word', 'translation', 'actions'];
+  displayedColumns: string[] = ['nr', 'word', 'translation', 'actions'];
   dataSource: MatTableDataSource<WordId>;
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   sampleDataBtn: boolean = false; //displays button to add sample data if words colection is empty
 
@@ -29,6 +32,7 @@ export class WordListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data);
         this.sampleDataBtn = (data.length > 0) ? false : true;
         console.log(data);
+        this.dataSource.sort = this.sort;
       }
     );
   }
@@ -61,11 +65,6 @@ export class WordListComponent implements OnInit {
     let selectedButtons = event.value;
     console.log("Selected columns:");
     console.log(selectedButtons);
-    const actionsIndex = selectedButtons.indexOf("actions");
-    if (actionsIndex !== -1) {
-      selectedButtons.splice(actionsIndex, 1);
-      selectedButtons.push("actions");
-    }
-    this.displayedColumns = selectedButtons;
+    this.displayedColumns = ['nr', ...selectedButtons, 'actions'];
   }
 }

@@ -4,7 +4,7 @@
         <span class="example-spacer"></span>
         <a [routerLink]="['/words/add']" class="link">Add Word</a>
         <a [routerLink]="['/words']" class="link">Words</a>
-        <a [routerLink]="['/words/test']" class="link">Test</a>
+        <a [routerLink]="['/words/random']" class="link">Random</a>
         <mat-icon *ngIf="!user" matTooltip="Log in" class="example-icon" aria-hidden="false" aria-label="account icon"
             (click)="auth.googleSignIn()">account_circle</mat-icon>
         <div *ngIf="auth.user$ | async as user">

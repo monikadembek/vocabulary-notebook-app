@@ -13,10 +13,11 @@
     (change)="onChange($event)" [value]="displayedColumns">
     <mat-button-toggle value="word">Word</mat-button-toggle>
     <mat-button-toggle value="translation">Translation</mat-button-toggle>
-    <mat-button-toggle value="actions">Actions</mat-button-toggle>
+    <mat-button-toggle value="pronounciation">Pronounciation</mat-button-toggle>
+    <mat-button-toggle value="contexts">Contexts</mat-button-toggle>
 </mat-button-toggle-group>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z3">
 
     <!-- Action Column -->
     <ng-container matColumnDef="actions">
@@ -37,14 +38,29 @@
         </td>
     </ng-container>
 
+    <ng-container matColumnDef="nr">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let i=index">{{ i+1 }}</td>
+    </ng-container>
+
     <ng-container matColumnDef="word">
-        <th mat-header-cell *matHeaderCellDef> Word </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Word </th>
         <td mat-cell *matCellDef="let element"> {{element.word}} </td>
     </ng-container>
 
     <ng-container matColumnDef="translation">
-        <th mat-header-cell *matHeaderCellDef> Translation </th>
-        <td mat-cell *matCellDef="let element"> {{element.translations}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Translation </th>
+        <td mat-cell *matCellDef="let element"> {{element.translations.join(', ')}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pronounciation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pronounciation </th>
+        <td mat-cell *matCellDef="let element"> {{element.pronounciation}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="contexts">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contexts </th>
+        <td mat-cell *matCellDef="let element"> {{element.contexts.join(', ')}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

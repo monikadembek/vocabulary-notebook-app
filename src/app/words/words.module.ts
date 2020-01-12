@@ -8,6 +8,7 @@ import { WordListComponent } from './word-list/word-list.component';
 import { WordAddComponent } from './word-add/word-add.component';
 import { WordDetailComponent } from './word-detail/word-detail.component';
 import { WordEditComponent } from './word-edit/word-edit.component';
+import { WordRandomComponent } from './word-random/word-random.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { WordEditComponent } from './word-edit/word-edit.component';
     WordListComponent,
     WordAddComponent,
     WordDetailComponent,
-    WordEditComponent
+    WordEditComponent,
+    WordRandomComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { WordEditComponent } from './word-edit/word-edit.component';
     RouterModule.forChild([
       { path: '', component: WordListComponent },
       { path: 'add', component: WordAddComponent },
+      { path: 'random', component: WordRandomComponent },
       { path: ':id', component: WordDetailComponent },
       { path: ':id/edit', component: WordEditComponent }
     ])
